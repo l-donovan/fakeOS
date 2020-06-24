@@ -8,8 +8,7 @@ class FunctionProcessor:
         self.function_mappings[fn_name] = fn
 
     def evaluate_statement(self, operator, args):
-        # TODO
-        print(f'Evaluating statement with operator \'{operator}\' and arguments {args} -> ', end='')
+        print(f'- Operator: \'{operator}\', arguments: {args} -> ', end='')
 
         if operator in self.function_mappings:
             out = self.function_mappings[operator](args)
@@ -21,6 +20,7 @@ class FunctionProcessor:
 
     def evaluate_statement_tree(self, tree):
         for i, level in reversed(list(enumerate(tree))):
+            print(f'Depth {i}')
             for j, statement in enumerate(level):
                 for k, arg in enumerate(statement.args):
                     if (type(arg) is ValuePlaceholder):
