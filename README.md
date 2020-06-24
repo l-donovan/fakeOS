@@ -5,7 +5,8 @@
 * `antlr4`
 
 ## Setup
+`pip install antlr4-python3-runtime`
 `antlr4 -Dlanguage=Python3 FunctionCall.g4`
 
 ## Run
-`python3 main.py`
+`python main.py`
