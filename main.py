@@ -1,55 +1,32 @@
-from antlr4 import *
+from antlr4 import CommonTokenStream
 from FunctionCallLexer import FunctionCallLexer
 from FunctionCallParser import FunctionCallParser
 from StdinLineStream import StdinLineStream
 from Function import Function
 from FunctionProcessor import FunctionProcessor
 from Signal import Signal, Status
-
+from Computer import Computer
 import calls
 
 
-def greet():
-    print('''\
-  __      _         ____   _____ 
- / _|    | |       / __ \ / ____|
-| |_ __ _| | _____| |  | | (___  
-|  _/ _` | |/ / _ \ |  | |\___ \ 
-| || (_| |   <  __/ |__| |____) |
-|_| \__,_|_|\_\___|\____/|_____/ 
-    ''')
-
-
 def main():
-    processor = FunctionProcessor()
-    processor.register('mul',   calls.mul)
-    processor.register('add',   calls.add)
-    processor.register('sub',   calls.sub)
-    processor.register('div',   calls.div)
-    processor.register('get',   calls.get)
-    processor.register('set',   calls.set)
-    processor.register('unset', calls.unset)
-    processor.register('exit',  calls.exit)
-    processor.register('quit',  calls.exit)
-    processor.register('print', calls.qprint)
+    fn_processor = FunctionProcessor()
+    fn_processor.register('mul',   calls.mul)
+    fn_processor.register('add',   calls.add)
+    fn_processor.register('sub',   calls.sub)
+    fn_processor.register('div',   calls.div)
+    fn_processor.register('get',   calls.get)
+    fn_processor.register('set',   calls.set)
+    fn_processor.register('unset', calls.unset)
+    fn_processor.register('exit',  calls.exit)
+    fn_processor.register('quit',  calls.exit)
+    fn_processor.register('print', calls.qprint)
 
-    greet()
-
-    while (True):
-        print('$ ', end='', flush=True)
-        text = StdinLineStream()
-        lexer = FunctionCallLexer(text)
-        stream = CommonTokenStream(lexer)
-        parser = FunctionCallParser(stream)
-
-        statement = parser.statement()
-        function = Function(statement.function())
-        tree = function.process_statement_tree()
-
-        output = processor.evaluate_statement_tree(tree)
-
-        if (output.value == Signal.TERM_EXIT):
-            break
+    computer = Computer()
+    computer.set_function_processor(fn_processor)
+    computer.set_fs_root('./fakeOS_root')
+    computer.boot()
+    computer.command_loop()
 
 
 if __name__ == '__main__':

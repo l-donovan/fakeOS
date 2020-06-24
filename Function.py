@@ -52,6 +52,20 @@ class Function:
                     depth + 1, len(self.statements[depth + 1])))
                 self._process_statement_tree(child, depth + 1)
             elif (type(child) is FunctionCallParser.ArgumentContext):
-                new_statement.args.append(Value(child.getText()))
+                val_float = child.FLOAT()
+                val_int = child.INT()
+                val_id = child.ID()
+                val_string = child.STRING()
+
+                if (val_float):
+                    val = float(val_float.getText())
+                elif (val_int):
+                    val = int(val_int.getText())
+                elif (val_id):
+                    val = str(val_id)
+                elif (val_string):
+                    val = str(val_string)[1:-1]
+
+                new_statement.args.append(Value(val))
 
         self.statements[depth].append(new_statement)

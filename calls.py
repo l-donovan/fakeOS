@@ -28,7 +28,7 @@ def set(args):
 
 
 def get(args):
-    return float(database[args[0].value].value)
+    return database[args[0].value].value
 
 
 def unset(args):
