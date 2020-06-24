@@ -2,7 +2,7 @@ grammar FunctionCall;
 
 statement: function NEWLINE;
 
-function: '(' operator (argument|function)* ')' ;
+function: operator (argument|'(' function ')')* ;
 
 operator: ID ;
 

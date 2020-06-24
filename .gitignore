@@ -1,5 +1,6 @@
 __pycache__
 .antlr
+.vscode
 *.interp
 *.tokens
 *Lexer.py
