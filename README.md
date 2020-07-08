@@ -11,3 +11,9 @@
 
 ## Run
 `python main.py`
+
+## Fun example
+    $ set pi 3.14159265
+    $ set tau (mul (get pi) 2.0)
+    $ print (format "Tau is equal to {}" (get tau))
+    Tau is equal to 6.2831853

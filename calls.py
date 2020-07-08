@@ -48,3 +48,7 @@ def exit(args):
 def qprint(args):
     print(*[arg.value for arg in args], flush=True)
     return Status.OK
+
+
+def format(args):
+    return args[0].value.format(*[arg.value for arg in args[1:]])
